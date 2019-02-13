@@ -4,8 +4,13 @@
 #include "../utility/StandardPlots.h"
 #include "../utility/SaveData.h"
 
+#include <string>
+#include <iostream>
+
 
 using std::string;
+using std::cout;
+using std::endl;
 
 
 // the base class cut from which the actual cuts will be derived
@@ -26,7 +31,10 @@ void Cut::save(dataContainer &d, string cutName){
 }
 
 void Cut::execute(dataContainer&d){
+  cout << "performing " << thisCutName << " cut" << endl;
   performCut(d);
+  cout << "plotting results of " << thisCutName << endl;
   plot(d, thisCutName);
+  cout << "saving events passing " << thisCutName << " to file" << endl;
   save(d, thisCutName);
 }

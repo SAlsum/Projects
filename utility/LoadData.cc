@@ -22,8 +22,9 @@ dataContainer loadData(std::vector<string> fileList){
     // get the base name for the first file assuming it is well formed
     string baseName0 = fileList[0];
     if(baseName0.rfind("/") != baseName0.npos){
-      baseName0 = fileList[0].substr(baseName0.rfind("/"),
-                                     baseName0.rfind("."));
+      baseName0 = baseName0.substr(baseName0.rfind("/")+1,
+                                   baseName0.rfind(".")
+                                   - (baseName0.rfind("/") + 1));
     }
     string f7 = baseName0.substr(0, 7);
     // cut files will start with 'EFTData'
@@ -161,8 +162,8 @@ dataContainer loadCutData(string inFile){
   Float_t inDrift;
   Float_t inRWall;
   Float_t inS2GausSigma;
-  Int_t inS2AftT1s;
-  Int_t inS2AftT0s;
+  Float_t inS2AftT1s;
+  Float_t inS2AftT0s;
 
   ULong64_t inLuxstamp;
   Int_t inClose2End;
@@ -178,26 +179,26 @@ dataContainer loadCutData(string inFile){
   const Int_t nEntries = (Int_t)dataTree->GetEntries();
 
   // set addresses
-  dataTree->SetBranchAddress("area_z_cor", &inS1);
+  dataTree->SetBranchAddress("s1", &inS1);
   dataTree->SetBranchAddress("partner", &inPartners);
-  dataTree->SetBranchAddress("prompt_fraction_tlx", &inPromptFraction);
-  dataTree->SetBranchAddress("max_peak_area", &inMaxPeakArea);
+  dataTree->SetBranchAddress("promptFraction", &inPromptFraction);
+  dataTree->SetBranchAddress("maxPeakArea", &inMaxPeakArea);
 
-  dataTree->SetBranchAddress("area_z_cor", &inS2);
-  dataTree->SetBranchAddress("area", &inS2Raw);
-  dataTree->SetBranchAddress("r_raw", &inR);
+  dataTree->SetBranchAddress("s2", &inS2);
+  dataTree->SetBranchAddress("s2Raw", &inS2Raw);
+  dataTree->SetBranchAddress("r", &inR);
   dataTree->SetBranchAddress("drift", &inDrift);
-  dataTree->SetBranchAddress("r_raw_wall", &inRWall);
-  dataTree->SetBranchAddress("gaus_fit_sigma", &inS2GausSigma);
-  dataTree->SetBranchAddress("aft_t1_samples", &inS2AftT1s);
-  dataTree->SetBranchAddress("aft_t0_samples", &inS2AftT0s);
+  dataTree->SetBranchAddress("rWall", &inRWall);
+  dataTree->SetBranchAddress("s2GausSigma", &inS2GausSigma);
+  dataTree->SetBranchAddress("s2AftT1", &inS2AftT1s);
+  dataTree->SetBranchAddress("s2AftT0", &inS2AftT0s);
 
   dataTree->SetBranchAddress("luxstamp", &inLuxstamp);
   dataTree->SetBranchAddress("close2End", &inClose2End);
   dataTree->SetBranchAddress("excluded", &inExcluded);
 
-  dataTree->SetBranchAddress("goodarea", &inGoodArea);
-  dataTree->SetBranchAddress("badarea", &inBadArea);
+  dataTree->SetBranchAddress("goodArea", &inGoodArea);
+  dataTree->SetBranchAddress("badArea", &inBadArea);
 
   // store data in object's vectors
   for(Int_t aaEvent = 0; aaEvent < nEntries; aaEvent++){
