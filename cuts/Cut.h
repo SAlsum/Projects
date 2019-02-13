@@ -16,10 +16,10 @@ class Cut{
   virtual void performCut(dataContainer &d) = 0;
   void plot(dataContainer &d, std::string cutName);
   void save(dataContainer &d, std::string cutName);
-  void execute(dataContainer &d);
+  void execute(dataContainer &d, bool cutOnly=false);
 };
 
 
-
+//check again
 
 #endif

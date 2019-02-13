@@ -228,6 +228,8 @@ dataContainer loadCutData(string inFile){
     d.cutMask.push_back(false);
 
     d.keepIndex.push_back(aaEvent);
+
+    if(aaEvent % 1000000 == 0){cout << "loading event " << aaEvent << endl;}
   } // end event loop
   
   return d;

@@ -30,11 +30,13 @@ void Cut::save(dataContainer &d, string cutName){
   saveData(d, cutName);
 }
 
-void Cut::execute(dataContainer&d){
+void Cut::execute(dataContainer&d, bool cutOnly /*=false*/){
   cout << "performing " << thisCutName << " cut" << endl;
   performCut(d);
-  cout << "plotting results of " << thisCutName << endl;
-  plot(d, thisCutName);
-  cout << "saving events passing " << thisCutName << " to file" << endl;
-  save(d, thisCutName);
+  if(!cutOnly){
+    cout << "plotting results of " << thisCutName << endl;
+    plot(d, thisCutName);
+    cout << "saving events passing " << thisCutName << " to file" << endl;
+    save(d, thisCutName);
+  }
 }

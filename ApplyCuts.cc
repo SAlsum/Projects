@@ -29,7 +29,7 @@ int main(int argc, char* argv[]){
 
   // perform cuts
   ExclusionCut exCut;
-  exCut.execute(d);
+  exCut.execute(d, true);
 
 
 
