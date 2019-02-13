@@ -33,13 +33,13 @@ void plotStandards(dataContainer &d, string cutName){
   // save an image of the histograms
   TCanvas* s1S2Canvas = new TCanvas();
   s1S2Hist->Draw("COLZ");
-  s1S2Canvas->SaveAs((cutName + "_S1S2.png").c_str());
+  s1S2Canvas->SaveAs(("plots/" + cutName + "_S1S2.png").c_str());
 
   TCanvas* spatialCanvas = new TCanvas();
   spatialHist->Draw("COLZ");
-  spatialCanvas->SaveAs((cutName + "_spatial.png").c_str());
+  spatialCanvas->SaveAs(("plots/" + cutName + "_spatial.png").c_str());
 
   TCanvas* spatialR2Canvas = new TCanvas();
   spatialR2Hist->Draw("COLZ");
-  spatialR2Canvas->SaveAs((cutName + "_r2spatial.png").c_str());  
+  spatialR2Canvas->SaveAs(("plots/" + cutName + "_r2spatial.png").c_str());  
 }

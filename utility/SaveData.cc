@@ -36,7 +36,7 @@ void saveData(dataContainer &d, string cutName){
 
 
   // create the tree itself
-  string fileName = "EFTData_post_" + cutName + ".root";
+  string fileName = "data/EFTData_post_" + cutName + ".root";
   TFile* outFile = new TFile(fileName.c_str(), "RECREATE");
   TTree* outTree = new TTree("cutData", "cutData");
 
