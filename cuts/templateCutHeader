@@ -1,0 +1,15 @@
+#ifndef HEADERNAME_H
+#define HEADERNAME_H
+
+#include "Cut.h"
+#include "../Settings.h"
+
+class TemplateCut : public Cut{
+ public:
+  TemplateCut();
+
+  void performCut(dataContainer &d);
+};
+
+
+#endif

@@ -6,6 +6,15 @@
 #include "utility/LoadData.h"
 #include "cuts/Cut.h"
 #include "cuts/ExclusionWKr.h"
+#include "cuts/Close2End.h"
+#include "cuts/Partner.h"
+#include "cuts/S1Range.h"
+#include "cuts/S2Range.h"
+#include "cuts/S2Raw.h"
+#include "cuts/Fiducial.h"
+#include "cuts/BadArea.h"
+#include "cuts/PromptFraction.h"
+#include "cuts/S2Shape.h"
 
 
 using std::vector;
@@ -30,8 +39,28 @@ int main(int argc, char* argv[]){
   // perform cuts
   ExclusionCut exCut;
   exCut.execute(d, true);
+  Close2EndCut closeCut;
+  closeCut.execute(d, true);
+  PartnerCut parCut;
+  parCut.execute(d);
 
+  S1RangeCut s1RangeCut;
+  s1RangeCut.execute(d);
+  S2RangeCut s2RangeCut;
+  s2RangeCut.execute(d);
+  S2RawCut s2RawThresholdCut;
+  s2RawThresholdCut.execute(d);
+  
 
+  FiducialCut fidCut;
+  fidCut.execute(d);
+
+  BadAreaCut baCut;
+  baCut.execute(d);
+  PromptFractionCut pfCut;
+  pfCut.execute(d);
+  S2ShapeCut s2ShapeCut;
+  s2ShapeCut.execute(d);
 
   return 0;
 }
