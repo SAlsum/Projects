@@ -10,16 +10,16 @@
 
 using std::string;
 
-void plotStandards(dataContainer &d, string cutName){
+void plotStandards(dataContainer &d, string plotPrefix){
   // set up histograms
-  TH2F* s1S2Hist = new TH2F((cutName + "_S1S2").c_str(),
-                            (cutName + "_S1S2").c_str(),
+  TH2F* s1S2Hist = new TH2F((plotPrefix + "_S1S2").c_str(),
+                            (plotPrefix + "_S1S2").c_str(),
                             299, 1, 300, 157, 200, 31600);
-  TH2F* spatialHist = new TH2F((cutName + "_spatial").c_str(),
-                               (cutName + "_spatial").c_str(),
+  TH2F* spatialHist = new TH2F((plotPrefix + "_spatial").c_str(),
+                               (plotPrefix + "_spatial").c_str(),
                                23, 0, 23, 40, 40, 300);
-  TH2F* spatialR2Hist = new TH2F((cutName + "_r2spatial").c_str(),
-                                 (cutName + "_r2spatial").c_str(),
+  TH2F* spatialR2Hist = new TH2F((plotPrefix + "_r2spatial").c_str(),
+                                 (plotPrefix + "_r2spatial").c_str(),
                                  40, 0, 529, 40, 40, 300);
   // loop through and add non-masked events to the histogram
   int index;
@@ -33,13 +33,14 @@ void plotStandards(dataContainer &d, string cutName){
   // save an image of the histograms
   TCanvas* s1S2Canvas = new TCanvas();
   s1S2Hist->Draw("COLZ");
-  s1S2Canvas->SaveAs(("plots/" + cutName + "_S1S2.png").c_str());
+  s1S2Canvas->SaveAs(("plots/" + plotPrefix + "_S1S2.png").c_str());
 
   TCanvas* spatialCanvas = new TCanvas();
   spatialHist->Draw("COLZ");
-  spatialCanvas->SaveAs(("plots/" + cutName + "_spatial.png").c_str());
+  spatialCanvas->SaveAs(("plots/" + plotPrefix + "_spatial.png").c_str());
 
   TCanvas* spatialR2Canvas = new TCanvas();
   spatialR2Hist->Draw("COLZ");
-  spatialR2Canvas->SaveAs(("plots/" + cutName + "_r2spatial.png").c_str());  
+  spatialR2Canvas->SaveAs(("plots/" + plotPrefix
+                           + "_r2spatial.png").c_str());  
 }

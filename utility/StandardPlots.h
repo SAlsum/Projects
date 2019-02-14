@@ -5,6 +5,6 @@
 
 #include <string>
 
-void plotStandards(dataContainer &d, std::string cutName);
+void plotStandards(dataContainer &d, std::string plotPrefix);
 
 #endif

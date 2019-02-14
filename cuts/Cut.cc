@@ -22,20 +22,25 @@ Cut::Cut(string cutName)
   :thisCutName(cutName)
 {}
 
-void Cut::plot(dataContainer &d, string cutName){
-  plotStandards(d, cutName);
+void Cut::plot(dataContainer &d, string plotPrefix){
+  plotStandards(d, plotPrefix);
 }
 
 void Cut::save(dataContainer &d, string cutName){
   saveData(d, cutName);
 }
 
-void Cut::execute(dataContainer&d, bool cutOnly /*=false*/){
+void Cut::execute(dataContainer&d, bool cutOnly /*=false*/,
+                  bool prePlots /*=false*/){
   cout << "performing " << thisCutName << " cut" << endl;
   performCut(d);
   if(!cutOnly){
+    if(prePlots){
+      cout << "plotting data prior to " << thisCutName << endl;
+      plot(d, "pre_" + thisCutName);
+    }
     cout << "plotting results of " << thisCutName << endl;
-    plot(d, thisCutName);
+    plot(d, "post_" + thisCutName);
     cout << "saving events passing " << thisCutName << " to file" << endl;
     save(d, thisCutName);
   }
