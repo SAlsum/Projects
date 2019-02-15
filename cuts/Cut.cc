@@ -32,13 +32,13 @@ void Cut::save(dataContainer &d, string cutName){
 
 void Cut::execute(dataContainer&d, bool cutOnly /*=false*/,
                   bool prePlots /*=false*/){
+  if(prePlots){
+    cout << "plotting data prior to " << thisCutName << endl;
+    plot(d, "pre_" + thisCutName);
+  }
   cout << "performing " << thisCutName << " cut" << endl;
   performCut(d);
   if(!cutOnly){
-    if(prePlots){
-      cout << "plotting data prior to " << thisCutName << endl;
-      plot(d, "pre_" + thisCutName);
-    }
     cout << "plotting results of " << thisCutName << endl;
     plot(d, "post_" + thisCutName);
     cout << "saving events passing " << thisCutName << " to file" << endl;

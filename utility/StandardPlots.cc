@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <math.h>
 
 #include "TH2F.h"
 #include "TCanvas.h"
@@ -21,6 +22,13 @@ void plotStandards(dataContainer &d, string plotPrefix){
   TH2F* spatialR2Hist = new TH2F((plotPrefix + "_r2spatial").c_str(),
                                  (plotPrefix + "_r2spatial").c_str(),
                                  40, 0, 529, 40, 40, 300);
+  TH2F* s1S2LowEnergyHist = new TH2F((plotPrefix + "_LE_S1S2").c_str(),
+                                     (plotPrefix + "_LE_S1S2").c_str(),
+                                     299, 1, 90, 157, 200, 6000);
+  TH2F* s1LogS2LEHist = new TH2F((plotPrefix + "_LE_S1LogS2").c_str(),
+                            (plotPrefix + "_LE_S1LogS2").c_str(),
+                            299, 1, 90, 157, 2.3, 3.8);
+  
   // loop through and add non-masked events to the histogram
   int index;
   for(int aaEvent = 0; aaEvent < d.keepIndex.size(); aaEvent++){
@@ -28,6 +36,8 @@ void plotStandards(dataContainer &d, string plotPrefix){
     s1S2Hist->Fill(d.s1s[index], d.s2s[index]);
     spatialHist->Fill(d.rs[index], d.drifts[index]);
     spatialR2Hist->Fill(pow(d.rs[index],2), d.drifts[index]);
+    s1S2LowEnergyHist->Fill(d.s1s[index], d.s2s[index]);
+    s1LogS2LEHist->Fill(d.s1s[index], log10(d.s2s[index]));
   } // end event loop
 
   // save an image of the histograms
@@ -42,5 +52,19 @@ void plotStandards(dataContainer &d, string plotPrefix){
   TCanvas* spatialR2Canvas = new TCanvas();
   spatialR2Hist->Draw("COLZ");
   spatialR2Canvas->SaveAs(("plots/" + plotPrefix
-                           + "_r2spatial.png").c_str());  
+                           + "_r2spatial.png").c_str());
+
+  TCanvas* s1S2LECanvas = new TCanvas();
+  s1S2LowEnergyHist->Draw("COLZ");
+  s1S2LECanvas->SaveAs(("plots/" + plotPrefix + "_LE_S1S2.png").c_str());
+
+  TCanvas* s1S2LEScatCanvas = new TCanvas();
+  s1S2LowEnergyHist->Draw("AP");
+  s1S2LEScatCanvas->SaveAs(("plots/" + plotPrefix +
+                            "_LE_S1S2_Scatter.png").c_str());
+
+  TCanvas* s1LogS2LECanvas = new TCanvas();
+  s1LogS2LEHist->Draw("COLZ");
+  s1LogS2LECanvas->SaveAs(("plots/" + plotPrefix +
+                           "_LE_S1LogS2.png").c_str());
 }
