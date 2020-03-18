@@ -9,6 +9,9 @@ class BadAreaCut : public Cut{
   BadAreaCut();
 
   void performCut(dataContainer &d);
+  void plot(dataContainer &d, std::string plotPrefix);
+
+  void plotUniques(dataContainer &d, std::string plotPrefix);
 };
 
 

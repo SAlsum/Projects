@@ -12,6 +12,8 @@
 #include "cuts/S2Range.h"
 #include "cuts/S2Raw.h"
 #include "cuts/Fiducial.h"
+#include "cuts/LuxstampRange.h"
+#include "cuts/KrExclusion.h"
 
 #include "TStopwatch.h"
 
@@ -38,17 +40,30 @@ int main(int argc, char* argv[]){
   dataContainer d = loadData(filenames);
 
   // perform cuts
-  ExclusionCut exCut;
-  exCut.execute(d, true);
   Close2EndCut closeCut;
   closeCut.execute(d, true);
   PartnerCut parCut;
   parCut.execute(d, true);
+  LuxstampRangeCut lsCut; // certain luxstamp ranges not currently interesting
+  lsCut.execute(d, false, true);
 
-  FiducialCut fidCut;
-  fidCut.execute(d);
+  // energy range
+  S1RangeCut s1RangeCut;
+  s1RangeCut.execute(d, true);
+  S2RangeCut s2RangeCut;
+  s2RangeCut.execute(d, false, true);
+
+
   
+  FiducialCut fidCut("utility/WallInfo");
+  fidCut.execute(d, false, true);
 
+  /*
+  // krypton exclusion
+  KrExclusionCut krCut;
+  krCut.loadInjections("utility/KrInjections.txt");
+  krCut.execute(d, false, true);
+  */
 
 
 

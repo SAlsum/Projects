@@ -37,6 +37,7 @@ void Cut::execute(dataContainer&d, bool cutOnly /*=false*/,
     plot(d, "pre_" + thisCutName);
   }
   cout << "performing " << thisCutName << " cut" << endl;
+  d.recentlyCutIndex.clear();
   performCut(d);
   if(!cutOnly){
     cout << "plotting results of " << thisCutName << endl;

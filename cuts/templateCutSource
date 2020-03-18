@@ -17,6 +17,7 @@ void TemplateCut::performCut(dataContainer &d){
     index = d.keepIndex[aaEvent];
     if(/*cut description*/){
       d.cutMask[index] = true;
+      d.recentlyCutIndex.push_back(index);
     } else {newKeepIndex.push_back(index);}
   }
   d.keepIndex = newKeepIndex;

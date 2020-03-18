@@ -37,3 +37,25 @@
 # Emacs Files #
 ##############
 *~
+
+# Setup Script #
+################
+*setup.sh
+*Setup.sh
+
+# Plots #
+#########
+plots/*
+
+# InterestingEvents #
+#####################
+interestingEvents/*
+
+# Links to External Data #
+##########################
+data/ClaudioData*
+data/ClaudioRun03*
+
+# Particular Sets of Interest #
+###############################
+auxInfo*
